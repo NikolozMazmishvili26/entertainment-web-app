@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
 
@@ -52,7 +52,21 @@ const GlobalStyles = createGlobalStyle`
     border-spacing: 0;
   }
 
-  /* color variables */
+  /* Target the scrollbar in WebKit-based browsers */
+::-webkit-scrollbar {
+  width: 4px; /* Set the width of the scrollbar */
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Set the background color of the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--greyish-blue); /* Set the background color of the scrollbar thumb */
+  border-radius: 5px; /* Set the border radius of the scrollbar thumb */
+}
+
 
   :root{
     --red-color: #FC4747;
@@ -67,20 +81,34 @@ const GlobalStyles = createGlobalStyle`
 import { Auth, Home } from "./pages";
 
 // import layouts
-
 import { Header } from "./layouts";
 
 function App() {
   return (
-    <BrowserRouter>
-      <GlobalStyles />
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/authorization" element={<Auth />}></Route>
-      </Routes>
-    </BrowserRouter>
+    <GlobalContainer>
+      <BrowserRouter>
+        <GlobalStyles />
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/authorization" element={<Auth />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </GlobalContainer>
   );
 }
 
 export default App;
+
+const GlobalContainer = styled.div`
+  background-color: var(--dark-blue);
+  overflow: hidden;
+  @media screen and (min-width: 768px) {
+    padding: 23px 24px 56px 24px;
+  }
+  @media screen and (min-width: 1110px) {
+    display: flex;
+    padding: 32px 0px 52px 32px;
+    column-gap: 36px;
+  }
+`;

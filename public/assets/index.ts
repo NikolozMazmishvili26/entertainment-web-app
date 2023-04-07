@@ -1,1 +1,11 @@
 export { default as logo } from "./logo.svg";
+export { default as navHome } from "./icon-nav-home.svg";
+export { default as navMovies } from "./icon-nav-movies.svg";
+export { default as navTV } from "./icon-nav-tv-series.svg";
+export { default as navBookmark } from "./icon-nav-bookmark.svg";
+export { default as avatar } from "./image-avatar.png";
+export { default as iconSearch } from "./icon-search.svg";
+export { default as fullBookmark } from "./icon-bookmark-full.svg";
+export { default as emptyBookmark } from "./icon-bookmark-empty.svg";
+export { default as categoryMovie } from "./icon-category-movie.svg";
+export { default as categoryTv } from "./icon-category-tv.svg";
