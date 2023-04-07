@@ -1,3 +1,4 @@
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 // import assets
@@ -13,21 +14,31 @@ import {
 function Header() {
   return (
     <MainHeader>
-      <Logo src={logo} alt="logo" />
+      <Link to="/">
+        <Logo src={logo} alt="logo" />
+      </Link>
       {/*  */}
       <HeaderNav>
         <NavList>
           <NavItem>
-            <NavImage src={navHome} alt="home" />
+            <StyledNavLink to="/">
+              <NavImage src={navHome} alt="home" />
+            </StyledNavLink>
           </NavItem>
           <NavItem>
-            <NavImage src={navMovies} alt="movies" />
+            <StyledNavLink to="/movies">
+              <NavImage src={navMovies} alt="movies" />
+            </StyledNavLink>
           </NavItem>
           <NavItem>
-            <NavImage src={navTV} alt="TV" />
+            <StyledNavLink to="/TV">
+              <NavImage src={navTV} alt="TV" />
+            </StyledNavLink>
           </NavItem>
           <NavItem>
-            <NavImage src={navBookmark} alt="bookmark" />
+            <StyledNavLink to="/bookmarked">
+              <NavImage src={navBookmark} alt="bookmark" />
+            </StyledNavLink>
           </NavItem>
         </NavList>
       </HeaderNav>
@@ -97,5 +108,12 @@ const Avatar = styled.img`
     width: 40px;
     height: 40px;
     bottom: 32px;
+  }
+`;
+
+const StyledNavLink = styled(NavLink)`
+  &.active {
+    filter: invert(100%) sepia(100%) saturate(110%) hue-rotate(0deg)
+      brightness(170%) contrast(110%);
   }
 `;

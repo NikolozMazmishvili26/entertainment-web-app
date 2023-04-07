@@ -78,7 +78,7 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 // import pages
-import { Auth, Home } from "./pages";
+import { Auth, Home, Movies, TV, Bookmarked } from "./pages";
 
 // import layouts
 import { Header } from "./layouts";
@@ -91,6 +91,9 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/movies" element={<Movies />}></Route>
+          <Route path="/TV" element={<TV />}></Route>
+          <Route path="/bookmarked" element={<Bookmarked />}></Route>
           <Route path="/authorization" element={<Auth />}></Route>
         </Routes>
       </BrowserRouter>
@@ -110,5 +113,8 @@ const GlobalContainer = styled.div`
     display: flex;
     padding: 32px 0px 52px 32px;
     column-gap: 36px;
+    max-width: 1920px;
+    width: 100%;
+    margin: auto;
   }
 `;

@@ -1,21 +1,23 @@
-import { useState } from "react";
 import styled from "styled-components";
-import data from "../../../data.json";
 
 // import components
-import { Recomended } from "../../components";
-import { dataProps } from "./Trending";
+import { SingleItem } from "../../../components";
+import { dataProps } from "../../../components/Home/Trending";
 
-function Recomendation() {
-  //
-  const [recomendation, setRecomendation] = useState<dataProps[]>(data);
+// interface
 
+interface recomendationProps {
+  title: string;
+  data: dataProps[];
+}
+
+function Recomendation({ title, data }: recomendationProps) {
   return (
     <Container>
-      <Title>Recomended for you</Title>
+      <Title>{title}</Title>
       <Wrapper>
-        {recomendation.map((recomended, Index) => {
-          return <Recomended key={Index} recomended={recomended} />;
+        {data.map((recomended, Index) => {
+          return <SingleItem key={Index} recomended={recomended} />;
         })}
       </Wrapper>
     </Container>
@@ -63,7 +65,7 @@ const Wrapper = styled.div`
     column-gap: 29px;
   }
   @media screen and (min-width: 1110px) {
-    grid-template-columns: repeat(5, auto);
+    grid-template-columns: repeat(4, auto);
     row-gap: 32px;
     column-gap: 40px;
   }

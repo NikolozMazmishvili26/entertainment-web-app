@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { dataProps } from "./Trending";
+import { dataProps } from "../../../components/Home/Trending";
 
 // import assets
 import {
@@ -7,13 +7,13 @@ import {
   fullBookmark,
   categoryMovie,
   categoryTv,
-} from "../../../public/assets";
+} from "../../../../public/assets";
 
 interface recomendedProps {
   recomended: dataProps;
 }
 
-function Recomended({ recomended }: recomendedProps) {
+function SingleItem({ recomended }: recomendedProps) {
   //
   const { category, isBookmarked, isTrending, rating, thumbnail, title, year } =
     recomended;
@@ -59,7 +59,7 @@ function Recomended({ recomended }: recomendedProps) {
   );
 }
 
-export default Recomended;
+export default SingleItem;
 
 const RecomendedContainer = styled.div`
   display: flex;
@@ -78,7 +78,12 @@ const Image = styled.div<{
   border-radius: 8px;
   cursor: pointer;
   @media screen and (min-width: 768px) {
+    background-image: url(${(props) => props.images.tablet});
     height: 140px;
+  }
+  @media screen and (min-width: 1110px) {
+    background-image: url(${(props) => props.images.desktop});
+    height: 174px;
   }
 `;
 

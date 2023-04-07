@@ -3,11 +3,11 @@ import styled from "styled-components";
 // import assets
 import { iconSearch } from "../../../../public/assets";
 
-function Search() {
+function Search({ placeholder }: { placeholder: string }) {
   return (
     <Container>
       <Image src={iconSearch} alt="search" />
-      <SearchInput type="text" placeholder="Search for movies or TV series" />
+      <SearchInput type="text" placeholder={placeholder} />
     </Container>
   );
 }
