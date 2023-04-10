@@ -9,18 +9,32 @@ import { dataProps } from "../../components/Home/Trending";
 function Home() {
   //
   const [recomendation, setRecomendation] = useState<dataProps[]>(data);
+  const [isSearching, setIsSearching] = useState(false);
   const dataWithoutTrending = recomendation.filter(
     (recomended) => !recomended.isTrending
   );
+  const dataWithTrending = recomendation.filter(
+    (recomended) => recomended.isTrending
+  );
+  //
   return (
     <Container>
       {/* Search Component */}
-      <Search placeholder="Search for movies or TV series" />
-      {/* Trending Component */}
-      <Trending />
-      {/* Recomendation Component */}
-      <Content title="Recommended for you" data={dataWithoutTrending} />
-      {/* <Recomendation /> */}
+      <Search
+        placeholder="Search for movies or TV series"
+        data={recomendation}
+        setIsSearching={setIsSearching}
+        isSearching={isSearching}
+      />
+      {!isSearching && (
+        <>
+          {/* Trending Component */}
+          <Trending data={dataWithTrending} />
+          {/* Recomendation Component */}
+          <Content title="Recommended for you" data={dataWithoutTrending} />
+          {/* <Recomendation /> */}
+        </>
+      )}
     </Container>
   );
 }

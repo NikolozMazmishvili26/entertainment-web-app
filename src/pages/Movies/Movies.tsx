@@ -9,14 +9,20 @@ import { dataProps } from "../../components/Home/Trending";
 function Movies() {
   //
   const [movies, setMovies] = useState<dataProps[]>(data);
+  const [isSearching, setIsSearching] = useState(false);
   const onlyMovies = movies.filter((movie) => movie.category === "Movie");
 
   return (
     <Container>
       {/* Search Component */}
-      <Search placeholder="Search for movies" />
+      <Search
+        placeholder="Search for movies"
+        data={onlyMovies}
+        isSearching={isSearching}
+        setIsSearching={setIsSearching}
+      />
       {/*  */}
-      <Content title="Movies" data={onlyMovies} />
+      {!isSearching && <Content title="Movies" data={onlyMovies} />}
     </Container>
   );
 }

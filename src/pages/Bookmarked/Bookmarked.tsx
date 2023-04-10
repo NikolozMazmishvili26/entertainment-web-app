@@ -8,7 +8,10 @@ import { dataProps } from "../../components/Home/Trending";
 
 function Bookmarked() {
   //
+  const [isSearching, setIsSearching] = useState(false);
   const [movies, setMovies] = useState<dataProps[]>(data);
+
+  const bookmarkedData = movies.filter((movie) => movie.isBookmarked);
 
   const bookmarkedMovies = movies.filter(
     (movie) => movie.category === "Movie" && movie.isBookmarked
@@ -21,10 +24,19 @@ function Bookmarked() {
   return (
     <Container>
       {/* Search Component */}
-      <Search placeholder="Search for bookmarked shows" />
+      <Search
+        placeholder="Search for bookmarked shows"
+        data={bookmarkedData}
+        isSearching={isSearching}
+        setIsSearching={setIsSearching}
+      />
       {/*  */}
-      <Content title="Bookmarked Movies" data={bookmarkedMovies} />
-      <Content title="Bookmarked TV Series" data={bookmarkedTvSeries} />
+      {!isSearching && (
+        <>
+          <Content title="Bookmarked Movies" data={bookmarkedMovies} />
+          <Content title="Bookmarked TV Series" data={bookmarkedTvSeries} />
+        </>
+      )}
     </Container>
   );
 }

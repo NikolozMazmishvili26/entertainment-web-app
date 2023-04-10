@@ -8,15 +8,21 @@ import { dataProps } from "../../components/Home/Trending";
 
 function TV() {
   //
+  const [isSearching, setIsSearching] = useState(false);
   const [tvSeries, setTvSeries] = useState<dataProps[]>(data);
   const onlyTv = tvSeries.filter((tvSerie) => tvSerie.category === "TV Series");
 
   return (
     <Container>
       {/* Search Component */}
-      <Search placeholder="Search for TV series" />
+      <Search
+        placeholder="Search for TV series"
+        data={onlyTv}
+        isSearching={isSearching}
+        setIsSearching={setIsSearching}
+      />
       {/*  */}
-      <Content title="TV Series" data={onlyTv} />
+      {!isSearching && <Content title="TV Series" data={onlyTv} />}
     </Container>
   );
 }

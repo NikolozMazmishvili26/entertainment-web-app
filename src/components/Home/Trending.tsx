@@ -29,15 +29,12 @@ export interface dataProps {
   year: number;
 }
 
-function Trending() {
-  //
-  const [trending, setTrending] = useState<dataProps[]>(data);
-  const isTrending = trending.filter((trend) => trend.isTrending);
+function Trending({ data }: { data: dataProps[] }) {
   return (
     <Container>
       <Title>Trending</Title>
       <TrendingContainer>
-        {isTrending.map((trending, Index) => {
+        {data.map((trending, Index) => {
           return <Trend key={Index} trending={trending} />;
         })}
       </TrendingContainer>
