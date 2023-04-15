@@ -47,4 +47,5 @@ const Container = styled.div`
   @media screen and (min-width: 768px) {
     padding: 33px 24px 56px 24px;
   }
+  overflow: hidden;
 `;

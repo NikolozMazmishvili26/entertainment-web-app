@@ -1,14 +1,10 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 
-// import data
-import data from "../../../data.json";
-
 // import components
-import { Trend } from "..";
+import { Trend } from "../../components";
 
 //
-
 export interface dataProps {
   category: string;
   isBookmarked: boolean;
@@ -72,16 +68,15 @@ const Title = styled.h2`
 
 const TrendingContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 240px);
+  grid-template-columns: repeat(5, minmax(240px, 1fr));
   column-gap: 16px;
-  overflow: hidden;
   overflow-x: scroll;
-  max-width: 1305px;
+  /* max-width: 1305px; */
   width: 100%;
+
   @media screen and (min-width: 768px) {
-    grid-template-columns: repeat(5, 470px);
+    grid-template-columns: repeat(5, minmax(470px, 1fr));
     column-gap: 40px;
-    max-width: 2594px;
-    width: 100%;
+    /* max-width: 2594px; */
   }
 `;

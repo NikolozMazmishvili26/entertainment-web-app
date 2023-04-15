@@ -1,13 +1,32 @@
+import { useForm } from "react-hook-form";
 import { useState } from "react";
 import styled from "styled-components";
 
 // import assets
 import { logo } from "../../../public/assets";
-
 // import components
-import { Authorization } from "../../components";
+import { Login, Signup } from "../../components";
+// import interface
+import { userProps } from "../../App";
 
-function Auth() {
+function Auth({
+  setUser,
+  user,
+  setAuthenticateUser,
+}: {
+  setUser: React.Dispatch<React.SetStateAction<userProps[]>>;
+  user: userProps[];
+  setAuthenticateUser: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+  //
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+    setValue,
+  } = useForm();
+
   //
   const [showSignUp, setShowSignUp] = useState(false);
 
@@ -16,18 +35,23 @@ function Auth() {
       <Logo src={logo} alt="logo" />
       <AuthWrapper>
         {showSignUp ? (
-          <Authorization
+          <Signup
             setShowSignUp={setShowSignUp}
-            title="Sign Up"
-            warning="Already have an account?"
-            authButtonText="Login"
+            register={register}
+            errors={errors}
+            handleSubmit={handleSubmit}
+            getValues={getValues}
+            setUser={setUser}
+            user={user}
+            setValue={setValue}
           />
         ) : (
-          <Authorization
+          <Login
             setShowSignUp={setShowSignUp}
-            title="Login"
-            warning="Don't have an account?"
-            authButtonText="Sign Up"
+            register={register}
+            handleSubmit={handleSubmit}
+            user={user}
+            setAuthenticateUser={setAuthenticateUser}
           />
         )}
       </AuthWrapper>

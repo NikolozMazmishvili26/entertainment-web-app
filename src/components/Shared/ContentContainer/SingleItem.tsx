@@ -7,6 +7,7 @@ import {
   fullBookmark,
   categoryMovie,
   categoryTv,
+  iconPlay,
 } from "../../../../public/assets";
 
 interface recomendedProps {
@@ -35,6 +36,13 @@ function SingleItem({ recomended }: recomendedProps) {
             alt="bookmarked"
           />
         </BoomarkBox>
+        {/* Backdrop */}
+        <Backdrop>
+          <PlayContainer>
+            <PlayIcon src={iconPlay} alt="play" />
+            <PlayTitle>Play</PlayTitle>
+          </PlayContainer>
+        </Backdrop>
       </Image>
       {/* description */}
       <Description>
@@ -55,16 +63,35 @@ function SingleItem({ recomended }: recomendedProps) {
           <Title>{title}</Title>
         </Bottom>
       </Description>
+      {/*  */}
     </RecomendedContainer>
   );
 }
 
 export default SingleItem;
 
+const Backdrop = styled.div`
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  z-index: -1;
+  transition-duration: 0.3s;
+`;
+
 const RecomendedContainer = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 8px;
+  &:hover {
+    ${Backdrop} {
+      opacity: 1;
+      z-index: 1;
+    }
+  }
 `;
 
 const Image = styled.div<{
@@ -189,4 +216,32 @@ const Title = styled.h2`
     font-size: 18px;
     line-height: 23px;
   }
+`;
+
+// backdrop box
+
+const PlayContainer = styled.div`
+  width: 117px;
+  height: 48px;
+  border-radius: 28.5px;
+  background-color: rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 9px;
+  padding-right: 24px;
+`;
+
+const PlayIcon = styled.img`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const PlayTitle = styled.p`
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 23px;
+  color: var(--white-color);
 `;

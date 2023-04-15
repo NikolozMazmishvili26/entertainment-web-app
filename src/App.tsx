@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
@@ -83,20 +84,64 @@ import { Auth, Home, Movies, TV, Bookmarked } from "./pages";
 // import layouts
 import { Header } from "./layouts";
 
+// user interface
+
+export interface userProps {
+  email: string;
+  password: string;
+}
+
 function App() {
+  // save authenticatedUser to localstorage
+  const savedAuthenticateUser = localStorage.getItem("authenticatedUser");
+  const parsedAuthenticateUser = savedAuthenticateUser
+    ? JSON.parse(savedAuthenticateUser)
+    : false;
+
+  const [authenticateUser, setAuthenticateUser] = useState(
+    parsedAuthenticateUser
+  );
+
+  useEffect(() => {
+    localStorage.setItem("authenticatedUser", JSON.stringify(authenticateUser));
+  }, [authenticateUser]);
+
+  // save user to localstorage
+  const savedUser = localStorage.getItem("user");
+  const parsedUser = savedUser ? JSON.parse(savedUser) : [];
+  const [user, setUser] = useState<userProps[]>(parsedUser);
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
+
   return (
     <GlobalContainer>
-      <BrowserRouter>
+      <>
         <GlobalStyles />
-        <Header />
+        <Header authenticateUser={authenticateUser} />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/movies" element={<Movies />}></Route>
-          <Route path="/TV" element={<TV />}></Route>
-          <Route path="/bookmarked" element={<Bookmarked />}></Route>
-          <Route path="/authorization" element={<Auth />}></Route>
+          {authenticateUser ? (
+            <>
+              {" "}
+              <Route path="/" element={<Home />} />
+              <Route path="/movies" element={<Movies />}></Route>
+              <Route path="/TV" element={<TV />}></Route>
+              <Route path="/bookmarked" element={<Bookmarked />}></Route>
+            </>
+          ) : (
+            <Route
+              path="/"
+              element={
+                <Auth
+                  user={user}
+                  setUser={setUser}
+                  setAuthenticateUser={setAuthenticateUser}
+                />
+              }
+            ></Route>
+          )}
         </Routes>
-      </BrowserRouter>
+      </>
     </GlobalContainer>
   );
 }
@@ -105,7 +150,6 @@ export default App;
 
 const GlobalContainer = styled.div`
   background-color: var(--dark-blue);
-  overflow: hidden;
   @media screen and (min-width: 768px) {
     padding: 23px 24px 56px 24px;
   }

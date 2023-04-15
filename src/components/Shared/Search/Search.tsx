@@ -99,6 +99,8 @@ const SearchInput = styled.input`
   width: 100%;
   outline: none;
   color: var(--white-color);
+  font-size: 16px;
+  line-height: 20px;
 
   &::placeholder {
     font-family: "Outfit";
@@ -113,5 +115,7 @@ const SearchInput = styled.input`
 
   @media screen and (min-width: 1110px) {
     width: 321px;
+    font-size: 24px;
+    line-height: 30px;
   }
 `;

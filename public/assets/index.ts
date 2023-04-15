@@ -9,3 +9,4 @@ export { default as fullBookmark } from "./icon-bookmark-full.svg";
 export { default as emptyBookmark } from "./icon-bookmark-empty.svg";
 export { default as categoryMovie } from "./icon-category-movie.svg";
 export { default as categoryTv } from "./icon-category-tv.svg";
+export { default as iconPlay } from "./icon-play.svg";

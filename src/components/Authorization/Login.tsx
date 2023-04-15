@@ -1,56 +1,78 @@
+import { useState } from "react";
 import styled from "styled-components";
+import {
+  UseFormRegister,
+  FieldValues,
+  UseFormHandleSubmit,
+} from "react-hook-form/dist/types";
 
 // import component
 import { Button } from "../../components";
+import { userProps } from "../../App";
 
-function Authorization({
-  setShowSignUp,
-  title,
-  warning,
-  authButtonText,
-}: {
+// interface
+
+interface login {
   setShowSignUp: React.Dispatch<React.SetStateAction<boolean>>;
-  title: string;
-  warning: string;
-  authButtonText: string;
-}) {
-  //
+  register: UseFormRegister<FieldValues>;
+  handleSubmit: UseFormHandleSubmit<FieldValues>;
+  user: userProps[];
+  setAuthenticateUser: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-  const handleShowAuth = () => {
-    if (title === "Sign Up") {
-      console.log("shamavidaaa");
-      setShowSignUp(false);
+function Login({
+  setShowSignUp,
+  handleSubmit,
+  register,
+  user,
+  setAuthenticateUser,
+}: login) {
+  //
+  const [error, setError] = useState(false);
+  //
+  const onSubmit = (data: any) => {
+    const authenticatedUser = user.find(
+      (u) => u.email === data.loginEmail && u.password === data.loginPassword
+    );
+    if (authenticatedUser) {
+      setAuthenticateUser(true);
+      setError(false);
     } else {
-      setShowSignUp(true);
+      setError(true);
     }
   };
 
   return (
-    <Container>
-      <Title>{title}</Title>
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <Title>Login</Title>
       <Wrapper>
-        <Input type="email" placeholder="Email address" />
-        <Input type="password" placeholder="Password" />
-        {title === "Sign Up" && (
-          <Input type="password" placeholder="Repeat Password" />
-        )}
+        <Input
+          type="email"
+          placeholder="Email address"
+          {...register("loginEmail")}
+        />
+        <Input
+          type="password"
+          placeholder="Password"
+          {...register("loginPassword")}
+        />
+        {/* error message */}
+        {error && <Error>Email or password is incorrect.</Error>}
       </Wrapper>
-      {title === "Login" ? (
-        <Button text="Login to your account" />
-      ) : (
-        <Button text="Create an account" />
-      )}
+      <Button text="Login to your account" />
       <CreateContainer>
-        <Warning>{warning}</Warning>
-        <AuthButton onClick={handleShowAuth}>{authButtonText}</AuthButton>
+        <Warning>Don't have an account?</Warning>
+        <AuthButton type="button" onClick={() => setShowSignUp(true)}>
+          Sign Up
+        </AuthButton>
       </CreateContainer>
-    </Container>
+    </Form>
   );
 }
 
-export default Authorization;
+export default Login;
 
-const Container = styled.div`
+const Form = styled.form`
   padding: 23px 24px 33px 23px;
 
   @media screen and (min-width: 768px) {
@@ -77,6 +99,7 @@ const Wrapper = styled.div`
 `;
 
 const Input = styled.input`
+  font-family: "Outfit", sans-serif;
   width: 100%;
   background-color: transparent;
   border: none;
@@ -126,5 +149,14 @@ const AuthButton = styled.button`
 
   &:hover {
     color: #fe6262;
+  }
+`;
+
+const Error = styled.p`
+  text-align: center;
+  color: white;
+  font-size: 14px;
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
   }
 `;

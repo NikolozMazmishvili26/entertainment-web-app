@@ -7,8 +7,10 @@ import {
   emptyBookmark,
   categoryMovie,
   categoryTv,
+  iconPlay,
 } from "../../../public/assets";
 
+// interface
 interface trendProps {
   trending: dataProps;
 }
@@ -24,6 +26,8 @@ function Trend({ trending }: trendProps) {
     small: thumbnail.trending?.small,
     large: thumbnail.trending?.large,
   };
+
+  //
 
   return (
     <Card images={images}>
@@ -53,11 +57,30 @@ function Trend({ trending }: trendProps) {
           <Title>{title}</Title>
         </Bottom>
       </Description>
+      {/* Backdrop */}
+      <Backdrop>
+        <PlayContainer>
+          <PlayIcon src={iconPlay} alt="play" />
+          <PlayTitle>Play</PlayTitle>
+        </PlayContainer>
+      </Backdrop>
     </Card>
   );
 }
 
 export default Trend;
+
+const Backdrop = styled.div`
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  z-index: -1;
+  transition-duration: 0.3s;
+`;
 
 const Card = styled.div<{
   images: {
@@ -75,10 +98,57 @@ const Card = styled.div<{
   cursor: pointer;
   display: flex;
   align-items: flex-end;
+
+  animation: scroll 10s linear infinite;
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-470px));
+    }
+  }
+
+  &:hover {
+    ${Backdrop} {
+      opacity: 1;
+      z-index: 1;
+    }
+  }
+
   @media screen and (min-width: 768px) {
     background-image: url(${(props) => props.images.large});
     height: 230px;
   }
+`;
+
+// backdrop box
+
+const PlayContainer = styled.div`
+  width: 117px;
+  height: 48px;
+  border-radius: 28.5px;
+  background-color: rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 9px;
+  padding-right: 24px;
+`;
+
+const PlayIcon = styled.img`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const PlayTitle = styled.p`
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 23px;
+  color: var(--white-color);
 `;
 
 const BookmarkBox = styled.div`

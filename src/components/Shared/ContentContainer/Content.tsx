@@ -31,6 +31,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 24px;
+  width: 100%;
+
   @media screen and (min-width: 768px) {
     margin-top: 40px;
   }
