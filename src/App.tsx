@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
@@ -113,6 +113,16 @@ function App() {
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(user));
   }, [user]);
+
+  //
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!authenticateUser) {
+      navigate("/");
+    }
+  }, [authenticateUser]);
 
   return (
     <GlobalContainer>
